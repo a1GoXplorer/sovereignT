@@ -1,0 +1,1 @@
+curl -G http://api.worldbank.org/countries/br/indicators/SP.POP.TOTL?format=JSON
