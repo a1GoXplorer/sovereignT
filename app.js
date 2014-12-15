@@ -6,28 +6,28 @@ var pg = require('pg');
 
 var app = express();
 
-app.set('view-engine', 'ejs');
+app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 
 
 // the root route
 app.get('/', function (req, res) {
-  res.render('home');
+  res.render('site/home');
 });
 
 //the about route
 app.get('/about', function (req, res) {
-	res.render('about');
+	res.render('site/about');
 });
 
 //the login route
 app.get('/login', function (req, res) {
-	res.render('login');
+	res.render('site/login');
 });
 
 //the signup route
 app.get('/signup', function (req, res) {
-	res.render('signup');
+	res.render('site/signup');
 });
 
 //checks to if server is listening to requests
