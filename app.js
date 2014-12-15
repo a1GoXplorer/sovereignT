@@ -32,5 +32,6 @@ app.get('/signup', function (req, res) {
 
 //checks to if server is listening to requests
 app.listen(3000, function () {
+  console.log(new Array('*').join());
   console.log("Listening");
 });
