@@ -1,7 +1,15 @@
 <!--views/site/home.ejs-->
 <!DOCTYPE HTML>
 <html>
+<head>
+	<title>SovereignT</title>
+	<link rel="stylesheet" href="/stylesheets/bootstrap.css">
+</head>
 <body>
 <h1>Site home</h1>
+<form method="post" action="/results">
+      <input type="text" name="countryHome[name]" placeholder="Home Country"><br />
+      <input type="text" name="countryTarget[name]" placeholder="Target Country"><br />
+      <button>Compare!</button>
 </body>
 </html>

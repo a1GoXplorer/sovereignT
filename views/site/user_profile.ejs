@@ -1,0 +1,15 @@
+<!--views/site/user_profile.ejs-->
+<!DOCTYPE HTML>
+<html>
+<body>
+<h1>User Profile</h1>
+<% comparisonList.forEach(function(comparison) { %>
+<div>
+  <a href="/site/user_profile<%= comparison.id %>"><%= comparison.title %></a>
+  <div>
+    <%= comparison.content %>
+  </div>
+</div>
+<% }) %>
+</body>
+</html>
