@@ -1,0 +1,15 @@
+<!--views/site/results.ejs-->
+<!DOCTYPE HTML>
+<html>
+<body>
+<h1>Comparison Results</h1>
+<% comparisonList.forEach(function(comparison) { %>
+<div>
+  <a href="/site/results<%= comparison.id %>"><%= comparison.title %></a>
+  <div>
+    <%= comparison.content %>
+  </div>
+</div>
+<% }) %>
+</body>
+</html>
