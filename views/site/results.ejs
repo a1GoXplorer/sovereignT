@@ -4,12 +4,18 @@
 <body>
 <h1>Comparison Results</h1>
 <% comparisonList.forEach(function(comparison) { %>
+<% if (comparison.value !== null) { %>
 <div>
-  <a href="/site/results<%= comparison.id %>"><%= comparison.title %></a>
   <div>
-    <%= comparison.content %>
+    <h1>
+    <%= comparison.date  %>
+    </h1>
+    <p>
+    <%= comparison.value  %>
+    </p>
   </div>
 </div>
+<% } %>
 <% }) %>
 </body>
 </html>
