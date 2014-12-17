@@ -2,8 +2,23 @@
 <!DOCTYPE HTML>
 <html>
 <body>
-<h1>Comparison Results</h1>
-<% comparisonList.forEach(function(comparison) { %>
+<h1>HOME</h1>
+<% comparisonHome.forEach(function(comparison) { %>
+<% if (comparison.value !== null) { %>
+<div>
+  <div>
+    <h1>
+    <%= comparison.date  %>
+    </h1>
+    <p>
+    <%= comparison.value  %>
+    </p>
+  </div>
+</div>
+<% } %>
+<% }) %>
+<h1>TARGET</h1>
+<% comparisonTarget.forEach(function(comparison) { %>
 <% if (comparison.value !== null) { %>
 <div>
   <div>
