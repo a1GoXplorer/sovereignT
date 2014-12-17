@@ -3,12 +3,15 @@
 <html>
 <head>
 	<title>SovereignT</title>
-	<link rel="stylesheet" href="/stylesheets/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="/stylesheets/custom.css">
+	<link rel="stylesheets" href="/stylesheets/bootstrap.css">
+	<link rel="stylesheets" type="text/css" href="/stylesheets/custom.css">
 
 </head>
 <body onload="initButton()">
 <h1>Site home</h1>
+<div>
+	<%= email %>
+</div>
 <form method="get" action="/results">
       <input type="text" name="countryHome[name]" placeholder="Home Country"><br />
       <input type="text" name="countryTarget[name]" placeholder="Target Country"><br />

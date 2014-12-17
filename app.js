@@ -6,17 +6,66 @@ var pg = require('pg');
 var request = require('request');
 var db = require('./models/');
 // var lodash = require ('lodash');
-// var bcrypt = require('bcrypt');
-// var cookieSession = require('cookie-session');
-// var cookieParser = require('cookie-parser');
-// var passport = require('passport');
-// var passportLocal = require('passport-local');
-// var db = require('/.models');
+ var bcrypt = require('bcrypt');
+  var session = require('cookie-session');
+ var cookieParser = require('cookie-parser');
+ var passport = require('passport');
+  var passportLocal = require('passport-local');
+//var db = require('/.models');
 
 var app = express();
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
+
+/*
+  What is the session?
+  It is the object that lives in our app
+    and records relevant info about users
+    who are signed in
+*/
+app.use(session( {
+  secret: 'thisismysecretkey',
+  name: 'chocolate chip',
+  // this is in milliseconds
+  maxage: 3600000
+  })
+);
+
+// get passport started
+app.use(passport.initialize());
+app.use(passport.session());
+
+/*
+SERIALizING
+Turns relevant user data into a string to be 
+  stored as a cookie
+*/
+passport.serializeUser(function(user, done){
+  console.log("SERIALIZED JUST RAN!");
+
+  done(null, user.id);
+});
+
+/*
+DeSERIALizing
+Taking a string and turns into an object
+  using the relevant data stored in the session
+*/
+passport.deserializeUser(function(id, done){
+  console.log("DESERIALIZED JUST RAN!");
+  db.user.find({
+      where: {
+        id: id
+      }
+    })
+    .then(function(user){
+      done(null, user);
+    },
+    function(err) {
+      done(err, null);
+    });
+});
 
 //serves all the files in our public folder
 // app.use(express.static(_dirname + "/public"));
@@ -24,7 +73,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 //root route
 app.get('/', function (req, res) {
-  res.render('site/home');
+  console.log("\n\n\nUSERS EMAIL", req.user.email);
+  res.render('site/home', {email: req.user.email});
 });
 
 // app.post('site/results' function (req, res) {
@@ -119,10 +169,15 @@ app.get('/login', function (req, res) {
   res.render('site/login');
 });
 
-app.post('/login', function(req, res){
-  console.log(req.body);
-  res.redirect('/');
-});
+// app.post('/login', function(req, res){
+//   console.log(req.body);
+//   res.redirect('/');
+// });
+// Authenticating a user
+app.post('/login', passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/login'
+}));
 
 //signup route
 app.get('/signup', function (req, res) {
@@ -130,8 +185,16 @@ app.get('/signup', function (req, res) {
 });
 
 app.post('/signup', function (req, res) {
-    console.log(req.body);
-    res.redirect('/');
+  var user = req.body.user;
+  db.user.createSecure(user.email, user.password,
+    function() {
+      res.send('ERROR');
+    },
+    function(){
+      res.redirect('/');
+    });
+    //console.log(req.body);
+    //res.redirect('/');
 })
 
 //user_profile route
@@ -191,6 +254,12 @@ app.post('/site/user_profile', function(req, res){
 //       res.redirect("/sign_up");
 //     })
 // });
+
+app.get("/logout", function (req, res) {
+  // log out
+  req.logout();
+  res.redirect("/");
+});
 
 
 
