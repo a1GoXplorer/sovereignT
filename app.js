@@ -43,8 +43,8 @@ app.get('/', function (req, res) {
 
 //makes request to worldbank, parses, renders to results page
 var countryHash = {
-  // united states: 'us',
-  // United States: 'us',
+  "united states": 'us',
+  "United States": 'us',
   brazil: 'br',
   Brazil: 'br',
   russia: 'ru',
@@ -75,16 +75,16 @@ var countryHash = {
   Japan: 'jp',
   mexico: 'mx',
   Mexico: 'mx',
-  // saudi arabia: 'sa',
-  // Saudi Arabia: 'sa',
-  // south africa: 'za',
-  // South Africa: 'za',
-  // united kingdom: 'uk',
-  // United Kingdom: 'uk',
-  // eu: 'eu',
-  // EU: 'eu',
-  // european union: 'eu',
-  // European Union: 'eu'
+  "saudi arabia": 'sa',
+  "Saudi Arabia": 'sa',
+  "south africa": 'za',
+  "South Africa": 'za',
+  "united kingdom": 'uk',
+  "United Kingdom": 'uk',
+  eu: 'eu',
+  EU: 'eu',
+  "european union": 'eu',
+  "European Union": 'eu'
 
 };
 
