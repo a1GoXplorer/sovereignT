@@ -18,17 +18,55 @@ var app = express();
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 
+//serves all the files in our public folder
+// app.use(express.static(_dirname + "/public"));
+
 
 //root route
 app.get('/', function (req, res) {
   res.render('site/home');
 });
 
+// app.post('site/results' function (req, res) {
+//   request('http://api.worldbank.org/countries/br/indicators/NY.GDP.MKTP.PP.CD?format=JSON', function(err, resp, body) {
+//     var dataPP = JSON.parse(body)[1];
+//     res.render('site/results', {comparisonList: data});
+//   });
+
+
+// }) ;
+
+// app.post('/results', function (req, res) {
+//   console.log(req.body);
+//   res.redirect('/results');
+// });
+
 //makes request to worldbank, parses, renders to results page
+var countryHash = {
+  brazil: 'br',
+  Brazil: 'br',
+  russia: 'ru',
+  Russia: 'ru',
+};
+
 app.get('/results', function (req, res) {
-  request('http://api.worldbank.org/countries/br/indicators/NY.GDP.MKTP.PP.CD?format=JSON', function(err,resp,body) {
-    var data = JSON.parse(body)[1];
-    res.render('site/results', {comparisonList: data});
+  var countries = req.query;
+  var home = countryHash[countries['countryHome'].name];
+  var target = countryHash[countries['countryTarget'].name];
+  var addISO2 = function(x) {
+    return 'http://api.worldbank.org/countries/' + x + '/indicators/NY.GDP.MKTP.PP.CD?format=JSON';
+  };
+  console.log('HOME: ', home);
+  console.log('TARGET: ', target);
+  var data = [];
+  request(addISO2(home), function(err,resp,body) {
+    data[0] = JSON.parse(body)[1];
+    request(addISO2(target), function(err, resp, body){
+      data[1] = JSON.parse(body)[1];
+      console.log('DATA[0]: ', data[0]);
+      console.log('DATA[1]: ', data[1]);
+      res.render('site/results', {comparisonHome: data[0], comparisonTarget: data[1]});
+    })
     });
 });
 
@@ -42,11 +80,27 @@ app.get('/login', function (req, res) {
   res.render('site/login');
 });
 
+app.post('/login', function(req, res){
+  console.log(req.body);
+  res.redirect('/');
+});
+
 //signup route
 app.get('/signup', function (req, res) {
     res.render('site/signup');
 });
 
+app.post('/signup', function (req, res) {
+    console.log(req.body);
+    res.redirect('/');
+})
+
+//user_profile route
+app.get('/user_profile', function (req, res) {
+  res.render('site/user_profile');
+});
+
+//posts new user information    
 app.post('/site/user_profile', function(req, res){
   console.log(req.body);
   var user = req.body.user;
@@ -58,10 +112,7 @@ app.post('/site/user_profile', function(req, res){
          });
 });
 
-app.post('/login', function(req, res){
-  console.log(req.body);
-  res.redirect('/');
-});
+
 
 //posts new user information
 // app.post("/site", function (req, res) {
@@ -102,10 +153,7 @@ app.post('/login', function(req, res){
 //     })
 // });
 
-//user_profile route
-app.get('/user_profile', function (req, res) {
-  res.render('site/user_profile');
-});
+
 
 
 // checks to if server is listening to requests
