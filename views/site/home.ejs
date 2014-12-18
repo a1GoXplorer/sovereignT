@@ -3,16 +3,29 @@
 <html>
 <head>
 	<title>SovereignT</title>
-	<link rel="stylesheet" href="/stylesheets/bootstrap.css">
+	<!--<link rel="stylesheets" href="/stylesheets/bootstrap.css">-->
 	<link rel="stylesheet" type="text/css" href="/stylesheets/custom.css">
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
 </head>
-<body onload="initButton()">
+<body>
+	<div class='blue'>
 <h1>Site home</h1>
+<div>
+	<%= email %>
+</div>
 <form method="get" action="/results">
       <input type="text" name="countryHome[name]" placeholder="Home Country"><br />
       <input type="text" name="countryTarget[name]" placeholder="Target Country"><br />
       <button id="test">Compare!</button>
   </form>
+ </div>
 </body>
 </html>
