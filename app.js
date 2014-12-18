@@ -270,7 +270,7 @@ app.get("/logout", function (req, res) {
 
 
 // checks to if server is listening to requests
- app.listen(3000, function () {
+ app.listen(process.env.PORT || 3000, function () {
    console.log(new Array('*').join());
    console.log("Listening");
  });
