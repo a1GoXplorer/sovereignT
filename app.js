@@ -73,8 +73,13 @@ passport.deserializeUser(function(id, done){
 
 //root route
 app.get('/', function (req, res) {
-  console.log("\n\n\nUSERS EMAIL", req.user.email);
-  res.render('site/home', {email: req.user.email});
+  if(req.user) {
+    res.render('site/home', {email: req.user.email});
+  }
+  else {
+    res.redirect('/login');
+  }
+  
 });
 
 // app.post('site/results' function (req, res) {
