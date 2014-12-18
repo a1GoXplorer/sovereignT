@@ -17,7 +17,7 @@ var app = express();
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
-
+app.use(express.static(__dirname + "/public"));
 /*
   What is the session?
   It is the object that lives in our app
