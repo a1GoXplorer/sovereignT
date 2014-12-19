@@ -28,6 +28,7 @@
     "passport-local": "^1.0.0",
     "pg": "^4.1.1",
     "request": "^2.51.0",
-    "sequelize": "^2.0.0-rc3"
+    "sequelize": "^2.0.0-rc3",
+    "sequelize-cli": "^1.0.0"
   }
 }
